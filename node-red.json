@@ -1,0 +1,382 @@
+[
+    {
+        "id": "254cc848.2228f8",
+        "type": "tab",
+        "label": "Smart Irrigation System",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "490385e9.c23b4c",
+        "type": "ibmiot in",
+        "z": "254cc848.2228f8",
+        "authentication": "apiKey",
+        "apiKey": "5c37ff02.5358d",
+        "inputType": "evt",
+        "logicalInterface": "",
+        "ruleId": "",
+        "deviceId": "1234",
+        "applicationId": "",
+        "deviceType": "NodeMCU",
+        "eventType": "iotsensor",
+        "commandType": "",
+        "format": "json",
+        "name": "IBM IoT",
+        "service": "registered",
+        "allDevices": "",
+        "allApplications": "",
+        "allDeviceTypes": false,
+        "allLogicalInterfaces": "",
+        "allEvents": false,
+        "allCommands": "",
+        "allFormats": "",
+        "qos": 0,
+        "x": 210,
+        "y": 240,
+        "wires": [
+            [
+                "efebf033.e5e3c",
+                "5e4c3f06.d9902",
+                "4d14d564.af03ec",
+                "6a072fe3.44b43",
+                "b6f9d17.578383"
+            ]
+        ]
+    },
+    {
+        "id": "5e4c3f06.d9902",
+        "type": "function",
+        "z": "254cc848.2228f8",
+        "name": "humidity",
+        "func": "msg.payload = msg.payload.d.humidity\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 600,
+        "y": 280,
+        "wires": [
+            [
+                "1d6d87b8.016818"
+            ]
+        ]
+    },
+    {
+        "id": "efebf033.e5e3c",
+        "type": "function",
+        "z": "254cc848.2228f8",
+        "name": "temp",
+        "func": "msg.payload = msg.payload.d.temperature\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 590,
+        "y": 200,
+        "wires": [
+            [
+                "5d7c392.10af7c8"
+            ]
+        ]
+    },
+    {
+        "id": "4d14d564.af03ec",
+        "type": "function",
+        "z": "254cc848.2228f8",
+        "name": "object temp",
+        "func": "msg.payload = msg.payload.d.objectTemp\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 610,
+        "y": 360,
+        "wires": [
+            [
+                "d031612e.98f9d"
+            ]
+        ]
+    },
+    {
+        "id": "d031612e.98f9d",
+        "type": "ui_gauge",
+        "z": "254cc848.2228f8",
+        "name": "object temp",
+        "group": "780b7db0.782e24",
+        "order": 3,
+        "width": "6",
+        "height": "4",
+        "gtype": "gage",
+        "title": "Object Temperature",
+        "label": "celsius",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 890,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "1d6d87b8.016818",
+        "type": "ui_gauge",
+        "z": "254cc848.2228f8",
+        "name": "Humidity",
+        "group": "780b7db0.782e24",
+        "order": 2,
+        "width": "6",
+        "height": "4",
+        "gtype": "gage",
+        "title": "Humidity",
+        "label": "gram per cubic meter",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#fa6412",
+            "#fa6400",
+            "#640000"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 900,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "5d7c392.10af7c8",
+        "type": "ui_gauge",
+        "z": "254cc848.2228f8",
+        "name": "Temperature",
+        "group": "780b7db0.782e24",
+        "order": 1,
+        "width": "6",
+        "height": "4",
+        "gtype": "gage",
+        "title": "Temperatue",
+        "label": "celsius",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#1717d3",
+            "#00e6d6",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 890,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "72dcc472.3e24ec",
+        "type": "inject",
+        "z": "254cc848.2228f8",
+        "name": "http",
+        "repeat": "8",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 480,
+        "wires": [
+            [
+                "22451551.3767ca"
+            ]
+        ]
+    },
+    {
+        "id": "22451551.3767ca",
+        "type": "http request",
+        "z": "254cc848.2228f8",
+        "name": "Open weather API",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": false,
+        "url": "http://api.openweathermap.org/data/2.5/weather?q=Mira Road,IN&appid=0118362fe6566f2ee87c111eea8d2899",
+        "tls": "",
+        "persist": true,
+        "proxy": "",
+        "authType": "",
+        "x": 330,
+        "y": 480,
+        "wires": [
+            [
+                "155147be.74d168",
+                "269fd2d1.ad353e",
+                "8e8af04f.2dd65",
+                "8c2d6b3f.902f48",
+                "70c119c1.d52508"
+            ]
+        ]
+    },
+    {
+        "id": "155147be.74d168",
+        "type": "ui_text",
+        "z": "254cc848.2228f8",
+        "group": "780b7db0.782e24",
+        "order": 11,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "TEMPERATURE",
+        "format": "{{msg.payload.main.temp-273.15}}",
+        "layout": "row-spread",
+        "x": 670,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "269fd2d1.ad353e",
+        "type": "ui_text",
+        "z": "254cc848.2228f8",
+        "group": "780b7db0.782e24",
+        "order": 12,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "HUMIDITY",
+        "format": "{{msg.payload.main.humidity}}",
+        "layout": "row-spread",
+        "x": 650,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "8e8af04f.2dd65",
+        "type": "ui_text",
+        "z": "254cc848.2228f8",
+        "group": "780b7db0.782e24",
+        "order": 13,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "ATMOSPHERIC PRESSURE",
+        "format": "{{msg.payload.main.pressure}}",
+        "layout": "row-spread",
+        "x": 700,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "8c2d6b3f.902f48",
+        "type": "ui_text",
+        "z": "254cc848.2228f8",
+        "group": "780b7db0.782e24",
+        "order": 10,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "WEATHER DESCRIPTION",
+        "format": "{{msg.payload.weather[0].description}}",
+        "layout": "row-spread",
+        "x": 700,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "70c119c1.d52508",
+        "type": "ui_text",
+        "z": "254cc848.2228f8",
+        "group": "780b7db0.782e24",
+        "order": 9,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "CITY",
+        "format": "{{msg.payload.name}}",
+        "layout": "row-spread",
+        "x": 630,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "94a10464.2e8a68",
+        "type": "ui_text",
+        "z": "254cc848.2228f8",
+        "group": "780b7db0.782e24",
+        "order": 17,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "MOTOR STATUS",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 950,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "6a072fe3.44b43",
+        "type": "debug",
+        "z": "254cc848.2228f8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 400,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "b6f9d17.578383",
+        "type": "function",
+        "z": "254cc848.2228f8",
+        "name": "CONDITIONAL",
+        "func": "msg.payload1 = msg.payload.d.temperature\nmsg.payload2 = msg.payload.d.humidity\nmsg.payload3 = msg.payload.d.objectTemp\nif(msg.payload1 >= '25'|| msg.payload2 >='70' || msg.payload3 >='28' )\n{\n    msg.payload='Motor On'\n}\nelse{\n    msg.payload='Motor Off'\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 380,
+        "y": 680,
+        "wires": [
+            [
+                "94a10464.2e8a68"
+            ]
+        ]
+    },
+    {
+        "id": "5c37ff02.5358d",
+        "type": "ibmiot",
+        "name": "",
+        "keepalive": "60",
+        "serverName": "",
+        "cleansession": true,
+        "appId": "",
+        "shared": false
+    },
+    {
+        "id": "780b7db0.782e24",
+        "type": "ui_group",
+        "name": "DATA",
+        "tab": "89e24107.7ca9d",
+        "order": 1,
+        "disp": false,
+        "width": 18,
+        "collapse": false
+    },
+    {
+        "id": "89e24107.7ca9d",
+        "type": "ui_tab",
+        "name": "SMART IRRIGATION SYSTEM BASED ON IoT",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
